@@ -3,6 +3,11 @@ import sys
 import mediapipe as mp
 import numpy as np
 import math
+import time
+import RPi.GPIO as GPIO
+
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(12, GPIO.OUT)
 
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
@@ -67,6 +72,12 @@ while True:
                 if(flag == True):
                     cv2.putText(frame, gesture[i][5], (round(text_x), round(text_y) + 50),
                                 cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
+                    if(i==5):
+                        GPIO.output(12, GPIO.HIGH)
+                        time.sleep(2)
+                    if(i==0):
+                        GPIO.output(12, GPIO.LOW)
+                        time.sleep(2)
 
     cv2.imshow("MediaPipe Hands", frame)
 

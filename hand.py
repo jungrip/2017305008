@@ -6,8 +6,9 @@ import math
 import time
 import RPi.GPIO as GPIO
 
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(12, GPIO.OUT)
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(17, GPIO.OUT)
 
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
@@ -73,16 +74,18 @@ while True:
                     cv2.putText(frame, gesture[i][5], (round(text_x), round(text_y) + 50),
                                 cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
                     if(i==5):
-                        GPIO.output(12, GPIO.HIGH)
-                        time.sleep(2)
-                    if(i==0):
-                        GPIO.output(12, GPIO.LOW)
-                        time.sleep(2)
+                        GPIO.output(17, True)
+                        #time.sleep(2)
+                    elif(i==0):
+                        GPIO.output(17, False)
+                        #time.sleep(2)
 
     cv2.imshow("MediaPipe Hands", frame)
 
     key = cv2.waitKey(5) & 0xFF
     if key == 27:
+        GPIO.output(17, False)
+        GPIO.cleanup()
         break
 
 cv2.destroyAllWindows()

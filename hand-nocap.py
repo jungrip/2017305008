@@ -1,7 +1,6 @@
 import cv2
 import sys
 import mediapipe as mp
-import numpy as np
 import math
 import RPi.GPIO as GPIO
 
@@ -65,11 +64,9 @@ while True:
                     if(i==5):
                         GPIO.setup(23, GPIO.HIGH)
                         #GPIO.output(18, GPIO.HIGH)
-                        #time.sleep(2)
                     elif(i==0):
                         GPIO.setup(23, GPIO.LOW)
                         #GPIO.output(18, GPIO.LOW)
-                        #time.sleep(2)
 
     key = cv2.waitKey(5) & 0xFF
     if key == 27:
